@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Btn effect</title>
+	<style>
+		body {
+			margin: 0;
+			background-color: #000;
+			color: #fff;
+			font-family: monospace;
+		}
+		.box {
+			width: 400px;
+			height: 320px;
+			position: relative;
+			background: #222;
+			margin: 170px auto;
+			display: -webkit-flex;
+			display: -moz-flex;
+			display: -ms-flex;
+			display: -o-flex;
+			display: flex;
+			justify-content: center;
+			-ms-align-items: center;
+			align-items: center;
+			-webkit-flex-direction: column;
+			-moz-flex-direction: column;
+			-ms-flex-direction: column;
+			-o-flex-direction: column;
+			flex-direction: column;
+
+		}
+		#day {
+			font-size: 24px;
+			margin: 0;
+		}
+		#dateme {
+			font-size: 42px;
+			margin: 0;
+			margin-top: 25px;
+		}
+		.box::before, .box::after {
+			content: '';
+			position: absolute;
+			left: -2px;
+			top: -2px;
+			width: calc(100% + 4px);
+			height: calc(100% + 4px);
+			background-image: linear-gradient(45deg, indigo,#0000ff,#fea100,#af8,#ff0036,indigo,#0000ff,#fea100,#af8,#ff0036);
+			-webkit-background-size: 400%;
+			background-size: 400%;
+			z-index: -1;
+			animation: bxsd 20000ms linear infinite;
+		}
+
+		.box::after {
+			filter: blur(20px);
+		}
+
+		@keyframes bxsd {
+			0%, 100% {
+				background-position: 0 0;
+			}
+			50% {
+				background-position: 300% 0;
+			}
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="box">
+		<p id="day">
+			Времени до нового года
+		</p>
+		<p id="dateme">
+			 
+		</p>
+	</div>
+
+
+	<script>
+
+		let dateText = document.querySelector('#dateme');
+
+		extendss()
+
+		setInterval(extendss, 1000)
+
+
+		function addZero(n) {
+			if (n <= 9) {
+				n = '0' + n;
+			}
+
+			return n;
+		}
+
+		function extendss() {
+			let now = new Date();
+			let purpose = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
+
+			let msBetween = Math.floor((purpose - now) / 1000);
+			let days = Math.floor(msBetween / (60 * 60 * 24))
+
+			let lastTime01 = msBetween % (60 * 60 * 24)
+			let hours = Math.floor(lastTime01 / (60 * 60));
+
+			let lastTime = lastTime01 % (60 * 60);
+			let minutes = Math.floor(lastTime / 60);
+
+			let lastTime2 = lastTime % 60;
+			let seconds = lastTime2;
+
+
+			dateText.textContent = `${addZero(days)}:${addZero(hours)}:${addZero(minutes)}:${addZero(seconds)}`
+		}
+	
+
+
+
+
+
+	</script>
+	
+</body>
+</html>
